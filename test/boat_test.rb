@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/boat'
+require './lib/renter'
 
 class BoatTest < MiniTest::Test
 
@@ -30,5 +31,14 @@ class BoatTest < MiniTest::Test
     boat.add_hour
 
     assert_equal 3, boat.hours_rented
+  end
+
+  def test_renter
+    boat = Boat.new(:kayak, 20)
+    patrick = Renter.new("Patrick Star", "4242424242424242")
+    boat.add_renter(patrick)
+
+    assert_equal patrick, boat.renter
+
   end
 end
