@@ -59,12 +59,22 @@ class DockTest < MiniTest::Test
     kayak_1.add_hour
     kayak_1.add_hour
 
-    expect = {
+    5.times do
+      sup_1.add_hour
+    end
+
+    expect_k = {
               :card_number => "4242424242424242",
               :amount => 40
                             }
+    expect_s = {
+              :card_number => "1313131313131313",
+              :amount => 45
+                            }
 
-    assert_equal expect, dock.charge(kayak_1)
+
+    assert_equal expect_s, dock.charge(sup_1)
+
   end
 
   def test_amount_calculation
