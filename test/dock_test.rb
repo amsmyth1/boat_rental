@@ -7,15 +7,15 @@ require './lib/dock'
 class DockTest < MiniTest::Test
 
   def test_it_exists
-    dock = Dock.new
+    dock = Dock.new("The Rowing Dock", 3)
 
     assert_instance_of Dock, dock
   end
 
   def test_it_has_readable_attributes
-    dock = Dock.new
+    dock = Dock.new("The Rowing Dock", 3)
 
-    assert_equal "Patrick Star", dock.name
-    assert_equal "4242424242424242", dock.credit_card_number
+    assert_equal "The Rowing Dock", dock.name
+    assert_equal 3, dock.max_rental_time
   end
 end
