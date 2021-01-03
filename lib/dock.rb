@@ -1,12 +1,14 @@
 class Dock
   attr_reader :name,
               :max_rental_time,
-              :rental_log
+              :rental_log,
+              :revenue
 
   def initialize(name, max_rental_time)
     @name = name
     @max_rental_time = max_rental_time
     @rental_log = {}
+    @revenue = 0
   end
 
   def rent(boat, renter)
@@ -39,10 +41,8 @@ class Dock
     #clears boat.renter
     #boat.hours_rented = 0
     #revenue += charge(boat)
-  end
-
-  def revenue
-    #generated after boats returned
-    #adds total boat charge
+    @revenue += charge(boat)[:amount]
+    boat.renter = nil
+    boat.hours_rented = 0
   end
 end
