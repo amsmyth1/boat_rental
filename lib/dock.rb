@@ -29,6 +29,20 @@ class Dock
     end
   end
 
+  def log_hour
+    @rental_log.each do |rental|
+      rental[0].hours_rented += 1
+    end
+  end
 
+  def return(boat)
+    #clears boat.renter
+    #boat.hours_rented = 0
+    #revenue += charge(boat)
+  end
 
+  def revenue
+    #generated after boats returned
+    #adds total boat charge
+  end
 end

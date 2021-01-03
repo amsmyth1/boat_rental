@@ -3,6 +3,7 @@ require 'minitest/pride'
 require './lib/boat'
 require './lib/renter'
 require './lib/dock'
+require 'pry'
 
 class DockTest < MiniTest::Test
 
@@ -93,6 +94,23 @@ class DockTest < MiniTest::Test
     expect = 40
 
     assert_equal expect, dock.amount_calculation(kayak_1)
+  end
+
+  def test_log_hour
+    dock = Dock.new("The Rowing Dock", 3)
+    kayak_1 = Boat.new(:kayak, 20)
+    kayak_2 = Boat.new(:kayak, 20)
+    sup_1 = Boat.new(:standup_paddle_board, 15)
+    patrick = Renter.new("Patrick Star", "4242424242424242")
+    eugene = Renter.new("Eugene Crabs", "1313131313131313")
+    dock.rent(kayak_1, patrick)
+    dock.rent(kayak_2, patrick)
+    dock.log_hour
+
+    expect = 1
+
+    assert_equal expect, kayak_1.hours_rented
+    assert_equal expect, kayak_2.hours_rented
   end
 
 end
