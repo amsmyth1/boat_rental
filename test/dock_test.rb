@@ -19,7 +19,7 @@ class DockTest < MiniTest::Test
     assert_equal 3, dock.max_rental_time
   end
 
-  def test_rent
+  def test_rent_and_renter
     dock = Dock.new("The Rowing Dock", 3)
     kayak_1 = Boat.new(:kayak, 20)
     kayak_2 = Boat.new(:kayak, 20)
@@ -31,6 +31,7 @@ class DockTest < MiniTest::Test
     expect = {kayak_1 => patrick}
 
     assert_equal expect, dock.rental_log
+    assert_equal patrick, kayak_1.renter
 
     dock.rent(kayak_2, patrick)
     dock.rent(sup_1, eugene)
@@ -42,6 +43,47 @@ class DockTest < MiniTest::Test
                                 }
 
     assert_equal expect, dock.rental_log
+  end
+
+
+  def test_charge
+    skip
+    dock = Dock.new("The Rowing Dock", 3)
+    kayak_1 = Boat.new(:kayak, 20)
+    kayak_2 = Boat.new(:kayak, 20)
+    sup_1 = Boat.new(:standup_paddle_board, 15)
+    patrick = Renter.new("Patrick Star", "4242424242424242")
+    eugene = Renter.new("Eugene Crabs", "1313131313131313")
+    dock.rent(kayak_1, patrick)
+    dock.rent(kayak_2, patrick)
+    dock.rent(sup_1, eugene)
+    kayak_1.add_hour
+    kayak_1.add_hour
+
+    expect = {
+              :card_number => "4242424242424242",
+              :amount => 40
+                            }
+
+    assert_equal expect, dock.charge(kayak_1)
+  end
+
+  def test_amount_calculation
+    dock = Dock.new("The Rowing Dock", 3)
+    kayak_1 = Boat.new(:kayak, 20)
+    kayak_2 = Boat.new(:kayak, 20)
+    sup_1 = Boat.new(:standup_paddle_board, 15)
+    patrick = Renter.new("Patrick Star", "4242424242424242")
+    eugene = Renter.new("Eugene Crabs", "1313131313131313")
+    dock.rent(kayak_1, patrick)
+    dock.rent(kayak_2, patrick)
+    dock.rent(sup_1, eugene)
+    kayak_1.add_hour
+    kayak_1.add_hour
+
+    expect = 40
+
+    assert_equal expect, dock.amount_calculation(kayak_1)
   end
 
 end
