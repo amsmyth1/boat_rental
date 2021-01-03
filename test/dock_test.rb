@@ -47,7 +47,6 @@ class DockTest < MiniTest::Test
 
 
   def test_charge
-    skip
     dock = Dock.new("The Rowing Dock", 3)
     kayak_1 = Boat.new(:kayak, 20)
     kayak_2 = Boat.new(:kayak, 20)
