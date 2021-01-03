@@ -117,6 +117,7 @@ class DockTest < MiniTest::Test
     kayak_1 = Boat.new(:kayak, 20)
     kayak_2 = Boat.new(:kayak, 20)
     sup_1 = Boat.new(:standup_paddle_board, 15)
+    sup_2 = Boat.new(:standup_paddle_board, 15)
     canoe = Boat.new(:canoe, 25)
     patrick = Renter.new("Patrick Star", "4242424242424242")
     eugene = Renter.new("Eugene Crabs", "1313131313131313")
@@ -133,6 +134,19 @@ class DockTest < MiniTest::Test
     assert_equal 0, kayak_1.hours_rented
     assert_equal 0, kayak_2.hours_rented
     assert_equal 105, dock.revenue
+    assert_nil kayak_1.renter
+
+    dock.rent(sup_1, eugene)
+    dock.rent(sup_2, eugene)
+    dock.log_hour
+    dock.log_hour
+    dock.log_hour
+    dock.log_hour
+    dock.log_hour
+    dock.return(sup_1)
+    dock.return(sup_2)
+
+    assert_equal 195, dock.revenue
   end
 
 end

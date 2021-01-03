@@ -38,9 +38,6 @@ class Dock
   end
 
   def return(boat)
-    #clears boat.renter
-    #boat.hours_rented = 0
-    #revenue += charge(boat)
     @revenue += charge(boat)[:amount]
     boat.renter = nil
     boat.hours_rented = 0
